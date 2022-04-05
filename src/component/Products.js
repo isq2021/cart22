@@ -2,21 +2,29 @@ import React, { useState } from "react";
 import list from "../data";
 import Card from "./Card";
 
+const Products = ({ handleClick }) => {
+  const [data, setData] = useState(list);
 
-const Products = ({handleClick}) => {
-
-
-
-
+  const filterResult = (catItem) => {
+    const result = list.filter((curData) => {
+      return curData.category === catItem;
+    });
+    setData(result);
+  };
   return (
-    <section className="products">
-      
-     
-      
-      {list.map((item) => (
-        <Card key={item.id} handleClick={handleClick} item={item}/>
-      ))}
-    </section>
+    <>
+      <div>
+        <div className="category">
+          <button onClick={() => filterResult("dress")}>Dresses</button>
+          <button onClick={() => filterResult("jacket")}>Jackets</button>
+        </div>
+      </div>
+      <section className="products">
+        {data.map((item) => (
+          <Card key={item.id} handleClick={handleClick} item={item} />
+        ))}
+      </section>
+    </>
   );
 };
 
